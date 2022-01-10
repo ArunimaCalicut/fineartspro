@@ -1,0 +1,68 @@
+{% extends 'adminhome.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+
+<div class="col-lg-12 mt-5">
+    {% for message in messages %}
+            <div class="alert alert-info" role="alert">
+                <strong>{{message}}</strong>
+            </div>
+            {% endfor %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="header-title">Results of {{program}}</h4>
+
+            <br><br><br>
+            <div class="single-table">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead class="text-uppercase bg-light"  >
+                          <tr >
+                            <th scope="col">SI No</th>
+                            <th scope="col">Student Name</th>
+
+                            <th scope="col">Group</th>
+                            <th scope="col">Mark</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in results %}
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+
+                            <td>
+                                {% for k in i.student.students.all %}
+                                {{forloop.counter}}. {{k.student}}
+                                ({{k.student.department}})<br>
+                                {% endfor %}
+                            </td>
+
+                            <td>{{i.student.group}}</td>
+                            <td>{{i.mark}}</td>
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7"><h4>No Results Found..</h4></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+window.mytest = function()
+{ var isValid = confirm('Are you sure Want to Delete ?');if (!isValid) { event.preventDefault();
+  }}
+
+
+
+
+</script>
+{% endblock %}
